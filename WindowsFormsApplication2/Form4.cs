@@ -126,7 +126,30 @@ namespace WindowsFormsApplication2
                 {
                     if (dataGridView1.Rows[i].Cells[5].Value.ToString() == "true")
                     {
-                       
+                        using (command = new OleDbCommand("SELECT COUNT(*) from Clientes where Nombres like @Nombres AND Apellidos like @Apellidos AND TipoID like @TipoID AND NoIdentificacion like @NoIdentificacion AND FechaNacimiento like @FechaNacimiento", con))
+                        {
+                            con.Open();
+                            command.Parameters.AddWithValue("@Nombres", dataGridView1.Rows[i].Cells[0].Value);
+                            command.Parameters.AddWithValue("@Apellidos", dataGridView1.Rows[i].Cells[1].Value);
+                            command.Parameters.AddWithValue("@TipoID", dataGridView1.Rows[i].Cells[2].Value);
+                            command.Parameters.AddWithValue("@NoIdentificacion", dataGridView1.Rows[i].Cells[3].Value);
+                            command.Parameters.AddWithValue("@FechaNacimiento", dataGridView1.Rows[i].Cells[4].Value);
+                            int userCount = (int)command.ExecuteScalar();
+                            Log2 = i;
+                            con.Close();
+                            if (userCount > 0)
+                            {
+                                Date = DateTime.Now.ToString();
+                                sw.Write("\r\n***********************************************************************************************************************************************************");
+                                sw.Write("\r\n" + Date + "\t|| \t\t\t|| ");
+                                f = i + 1;
+                                sw.Write("\t" + f + "\t");
+                                sw.Write("||\tEl registro ya existe en la base de datos");
+                                Problem = 1;
+                                                               
+                            }
+                            else
+                            {
                                 command = new OleDbCommand(@"INSERT INTO Clientes (Nombres, Apellidos, TipoID, NoIdentificacion, FechaNacimiento)  VALUES (@Nombres, @Apellidos, @TipoID, @NoIdentificacion, @FechaNacimiento)", con);
                                 command.Parameters.AddWithValue("@Nombres", dataGridView1.Rows[i].Cells[0].Value);
                                 command.Parameters.AddWithValue("@Apellidos", dataGridView1.Rows[i].Cells[1].Value);
@@ -135,16 +158,46 @@ namespace WindowsFormsApplication2
                                 command.Parameters.AddWithValue("@FechaNacimiento", dataGridView1.Rows[i].Cells[4].Value);
                                 con.Open();
                                 command.ExecuteNonQuery();
-                                con.Close();
-                                
-                          
-                        
-
-                        command.Parameters.Clear();
+                                con.Close();          
+                            }
+                        }
+                       
+                                                  
+                                               
+                                               
                     }
-
+                    
 
                 }
+                if (Problem != 1)
+                {
+                    sw.Write("\r\n***********************************************************************************************************************************************************");
+                    sw.Write("\r\nSin Errores");
+                }
+                sw.Close();
+                if (Problem == 1)
+                {
+                    MessageBox.Show("No se han cargado algunos registros, se genero un archivo Log, por favor selecciona donde guardarlo.");
+
+                    string path = @"C:\Users\Public\Documents\ProgLog\Log.txt";
+                    saveFileDialog1.Filter = "Archivo de Texto(*.txt)|*.txt";
+                    saveFileDialog1.FileName = "Log.txt";
+                    DialogResult res = saveFileDialog1.ShowDialog();
+                    string path2 = saveFileDialog1.FileName;
+                    if (res == DialogResult.OK)
+                    {
+                        if (File.Exists(path2))
+                        {
+                            File.Delete(path2);
+                            File.Move(path, path2);
+                        }
+                        else
+                        {
+                            File.Move(path, path2);
+                        }
+                    }
+                }
+                                
                 MessageBox.Show("Terminado");
                 
                 dataGridView1.DataSource = null;
@@ -179,49 +232,23 @@ namespace WindowsFormsApplication2
             dataGridView1.Columns.Add("Valido", "Valido");
             dataGridView1.Columns[5].Visible = false;
 
-            int num1 = 0;
-            int num2 = 0;
-            int num3 = 0;
-            int num4 = 0;
-            int num5 = 0;
-            int num6 = 0;
-            int num7 = 0;
+            
+            
 
             for (int i = 0; i <= dataGridView1.Rows.Count - 1; i++)
             {
-                using (command = new OleDbCommand("SELECT COUNT(*) from Clientes where Nombres like @Nombres AND Apellidos like @Apellidos AND TipoID like @TipoID AND NoIdentificacion like @NoIdentificacion AND FechaNacimiento like @FechaNacimiento", con))
-                {
-                    con.Open();
-                    command.Parameters.AddWithValue("@Nombres", dataGridView1.Rows[i].Cells[0].Value);
-                    command.Parameters.AddWithValue("@Apellidos", dataGridView1.Rows[i].Cells[1].Value);
-                    command.Parameters.AddWithValue("@TipoID", dataGridView1.Rows[i].Cells[2].Value);
-                    command.Parameters.AddWithValue("@NoIdentificacion", dataGridView1.Rows[i].Cells[3].Value);
-                    command.Parameters.AddWithValue("@FechaNacimiento", dataGridView1.Rows[i].Cells[4].Value);
-                    int userCount = (int)command.ExecuteScalar();
-                    Log2 = i;
-                    con.Close();
-                    if (userCount > 0)
-                    {
-                        Date = DateTime.Now.ToString();
-                        sw.Write("\r\n***********************************************************************************************************************************************************");
-                        sw.Write("\r\n" + Date + "\t|| \t\t\t|| ");
-                        f = i + 1;
-                        sw.Write("\t" + f + "\t");
-                        sw.Write("||\tEl registro ya existe en la base de datos");
-                        
-                        Problem = 1;
-                    }
-                    else
-                    {
-                        num7 = 1;
-                    }
+                int num1 = 0;
+                int num2 = 0;
+                int num3 = 0;
+                int num4 = 0;
+                int num5 = 0;
+                int num6 = 0;
                     
-                }
+                
                 string Nombre = dataGridView1.Rows[i].Cells[0].Value.ToString();
                 string Apellido = dataGridView1.Rows[i].Cells[1].Value.ToString();
                 string TipoID = dataGridView1.Rows[i].Cells[2].Value.ToString();
                 string NumID = dataGridView1.Rows[i].Cells[3].Value.ToString();
-
                 string FechaNaci = dataGridView1.Rows[i].Cells[4].Value.ToString();
 
                 
@@ -374,7 +401,7 @@ namespace WindowsFormsApplication2
                 }
 
 
-                if (num1 == 1 && num2 == 1 && num3 == 1 && num4 == 1 && num5 == 1 && num6 == 1 && num7 == 1)
+                if (num1 == 1 && num2 == 1 && num3 == 1 && num4 == 1 && num5 == 1 && num6 == 1 /*&& num7 == 1*/)
                 {
                     dataGridView1.Rows[i].Cells[5].Value = "true";
                 }
@@ -413,39 +440,10 @@ namespace WindowsFormsApplication2
 
                 }
 
-            }
-                
-            if (Problem != 1)
-            {
-                sw.Write("\r\n***********************************************************************************************************************************************************");
-                sw.Write("\r\nSin Errores");
-            }
-
-            sw.Close();
-            if (Problem == 1)
-            {
-                MessageBox.Show("No se han cargado algunos registros, se genero un archivo Log, por favor selecciona donde guardarlo.");
-
-                string path = @"C:\Users\Public\Documents\ProgLog\Log.txt";
-                saveFileDialog1.Filter = "Archivo de Texto(*.txt)|*.txt";
-                saveFileDialog1.FileName = "Log.txt";
-                DialogResult res = saveFileDialog1.ShowDialog();
-                string path2 = saveFileDialog1.FileName;
-                if (res == DialogResult.OK)
-                {
-                    if (File.Exists(path2))
-                    {
-                        File.Delete(path2);
-                        File.Move(path, path2);
-                    }
-                    else
-                    {
-                        File.Move(path, path2);
-                    }
-                }
-            }
-
-
+            }        
+            
+       
+                                
         }
 
         private void Form4_Load(object sender, System.EventArgs e)
