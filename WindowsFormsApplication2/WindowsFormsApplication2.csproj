@@ -204,6 +204,9 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <None Include="ArchivosPruebas\Book1.xlsx" />
+    <None Include="ArchivosPruebas\BookPocos.xlsx" />
+    <None Include="ArchivosPruebas\new 1.json" />
     <None Include="ClientesDataSet.xsc">
       <DependentUpon>ClientesDataSet.xsd</DependentUpon>
     </None>
@@ -318,6 +321,12 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="ArchivosPruebas\Book1.txt" />
+    <Content Include="ArchivosPruebas\Book2.txt" />
+    <Content Include="ArchivosPruebas\Log.txt" />
+    <Content Include="ArchivosPruebas\XMLFile1.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
