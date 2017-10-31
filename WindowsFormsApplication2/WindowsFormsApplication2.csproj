@@ -327,6 +327,12 @@
     <Content Include="ArchivosPruebas\Book2.txt" />
     <Content Include="ArchivosPruebas\Log.txt" />
     <Content Include="ArchivosPruebas\XMLFile1.xml" />
+    <Content Include="BasesDeDatos\ClientesM.accdb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="BasesDeDatos\UsuariosM.accdb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
