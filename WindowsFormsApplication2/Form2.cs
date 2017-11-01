@@ -51,6 +51,7 @@ namespace WindowsFormsApplication2
                 this.Size = new Size(690, 620);
                 this.CenterToScreen();
                 label1.Hide();
+            //Form2.
                 fr.FormClosed += new FormClosedEventHandler(fr_FormClosed);
                 fr.Show();
                 

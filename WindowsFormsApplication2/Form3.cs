@@ -118,7 +118,10 @@ namespace WindowsFormsApplication2
                 rno++;
             }
             else
+            {
                 MessageBox.Show("Ocurrio un problema");
+            }
+                
             DisplayData();
         }
         
