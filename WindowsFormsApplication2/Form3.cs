@@ -99,11 +99,11 @@ namespace WindowsFormsApplication2
                 Cmand = @"INSERT INTO Clientes (Nombres, Apellidos, TipoID, NoIdentificacion, FechaNacimiento) VALUES (@Nombres, @Apellidos, @TipoID, @NoIdentificacion, @FechaNacimiento)";
             }
             cmd = new OleDbCommand(Cmand, con);
-            int MAster=Convert.ToInt32(textBox3.Text);
+            //int MAster=Convert.ToInt32(textBox3.Text);
             cmd.Parameters.AddWithValue("@Nombres", TxbNombre.Text);
             cmd.Parameters.AddWithValue("@Apellidos", TxbApellido.Text);
             cmd.Parameters.AddWithValue("@TipoID", comboBox1.Text);
-            cmd.Parameters.AddWithValue("@NoIdentificacion", MAster);
+            cmd.Parameters.AddWithValue("@NoIdentificacion", textBox3.Text);
             cmd.Parameters.AddWithValue("@FechaNacimiento", dateTimePicker1.Text);
             
             conv_photo();//Convertir foto a arreglo de bytes
@@ -196,6 +196,7 @@ namespace WindowsFormsApplication2
 
         private void Form3_Load(object sender, EventArgs e)
         {
+            
             String Session = "Usuario: " + Ather;
             label6.Text = Session;
             con = new OleDbConnection(@"Provider=Microsoft.ACE.OLEDB.12.0;Data Source=C:\Users\dn12153\Documents\Access\ClientesM.accdb");

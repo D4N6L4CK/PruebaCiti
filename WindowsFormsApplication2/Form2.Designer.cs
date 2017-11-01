@@ -36,7 +36,7 @@
             this.agregarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.CargarClientes = new System.Windows.Forms.ToolStripMenuItem();
             this.exportarCLientesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.BtnSalir = new Infragistics.Win.Misc.UltraButton();
+            this.cerrarSesionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.contextMenuStrip2 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.clientesToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
@@ -57,10 +57,11 @@
             this.menuToolStripMenuItem,
             this.clientesToolStripMenuItem,
             this.CargarClientes,
-            this.exportarCLientesToolStripMenuItem});
+            this.exportarCLientesToolStripMenuItem,
+            this.cerrarSesionToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(372, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(428, 24);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             this.menuStrip1.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.menuStrip1_ItemClicked);
@@ -82,7 +83,6 @@
             // 
             // agregarToolStripMenuItem
             // 
-            this.agregarToolStripMenuItem.CheckOnClick = true;
             this.agregarToolStripMenuItem.Name = "agregarToolStripMenuItem";
             this.agregarToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.agregarToolStripMenuItem.Text = "Administrar";
@@ -102,14 +102,12 @@
             this.exportarCLientesToolStripMenuItem.Text = "Exportar Clientes";
             this.exportarCLientesToolStripMenuItem.Click += new System.EventHandler(this.exportarCLientesToolStripMenuItem_Click);
             // 
-            // BtnSalir
+            // cerrarSesionToolStripMenuItem
             // 
-            this.BtnSalir.ButtonStyle = Infragistics.Win.UIElementButtonStyle.Windows8Button;
-            this.BtnSalir.Location = new System.Drawing.Point(285, 104);
-            this.BtnSalir.Name = "BtnSalir";
-            this.BtnSalir.TabIndex = 6;
-            this.BtnSalir.Text = "Salir";
-            this.BtnSalir.Click += new System.EventHandler(this.BtnSalir_Click);
+            this.cerrarSesionToolStripMenuItem.Name = "cerrarSesionToolStripMenuItem";
+            this.cerrarSesionToolStripMenuItem.Size = new System.Drawing.Size(88, 20);
+            this.cerrarSesionToolStripMenuItem.Text = "Cerrar Sesion";
+            this.cerrarSesionToolStripMenuItem.Click += new System.EventHandler(this.BtnSalir_Click);
             // 
             // contextMenuStrip1
             // 
@@ -152,7 +150,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(12, 78);
+            this.label1.Location = new System.Drawing.Point(12, 110);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(35, 13);
             this.label1.TabIndex = 7;
@@ -162,12 +160,15 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(372, 139);
+            this.BackColor = System.Drawing.SystemColors.AppWorkspace;
+            this.ClientSize = new System.Drawing.Size(428, 161);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.BtnSalir);
             this.Controls.Add(this.menuStrip1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.IsMdiContainer = true;
             this.MainMenuStrip = this.menuStrip1;
+            this.MaximizeBox = false;
             this.Name = "Form2";
             this.Text = "Menu";
             this.Load += new System.EventHandler(this.Form2_Load);
@@ -186,7 +187,6 @@
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem menuToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem clientesToolStripMenuItem;
-        private Infragistics.Win.Misc.UltraButton BtnSalir;
         internal System.Windows.Forms.ToolStripMenuItem agregarToolStripMenuItem;
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip2;
@@ -198,5 +198,6 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ToolStripMenuItem CargarClientes;
         private System.Windows.Forms.ToolStripMenuItem exportarCLientesToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem cerrarSesionToolStripMenuItem;
         }
 }

@@ -156,7 +156,7 @@
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(573, 606);
+            this.button2.Location = new System.Drawing.Point(573, 504);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(75, 23);
             this.button2.TabIndex = 11;
@@ -167,7 +167,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(39, 597);
+            this.label6.Location = new System.Drawing.Point(32, 504);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(35, 13);
             this.label6.TabIndex = 12;
@@ -206,7 +206,7 @@
             this.dataGridView1.Location = new System.Drawing.Point(12, 232);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.ReadOnly = true;
-            this.dataGridView1.Size = new System.Drawing.Size(636, 348);
+            this.dataGridView1.Size = new System.Drawing.Size(636, 260);
             this.dataGridView1.TabIndex = 15;
             this.dataGridView1.RowHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridView1_RowHeaderMouseClick);
             // 
@@ -234,7 +234,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(660, 641);
+            this.ClientSize = new System.Drawing.Size(660, 548);
             this.Controls.Add(this.Borrar);
             this.Controls.Add(this.Update);
             this.Controls.Add(this.dataGridView1);
@@ -253,7 +253,7 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.TxbNombre);
             this.Controls.Add(this.comboBox1);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Form3";
             this.Text = "Administrar";

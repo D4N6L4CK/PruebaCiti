@@ -16,10 +16,12 @@ namespace WindowsFormsApplication2
         OleDbConnection con;
         OleDbCommand cmd;
         OleDbDataAdapter adapter;
-        public ExportForm()
+        public ExportForm(string name)
         {
+            this.Name = name;
             InitializeComponent();
         }
+               
 
         private void ExportForm_Load(object sender, EventArgs e)
         {
