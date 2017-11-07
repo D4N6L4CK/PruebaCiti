@@ -117,7 +117,7 @@ namespace WindowsFormsApplication2
             ExpForm = new ExportForm(name);
             ExpForm.MdiParent = this;
             ExpForm.Dock = DockStyle.Fill;
-            this.Size = new Size(550, 450);
+            this.Size = new Size(643, 450);
             this.CenterToScreen();
             label1.Hide();
             ExpForm.FormClosed += new FormClosedEventHandler(ExpForm_FormClosed);
