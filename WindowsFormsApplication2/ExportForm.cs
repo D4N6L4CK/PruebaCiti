@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.OleDb;
+using System.IO;
 
 namespace WindowsFormsApplication2
 {
@@ -22,7 +23,7 @@ namespace WindowsFormsApplication2
             this.Name = name;
             InitializeComponent();
         }
-               
+
 
         private void ExportForm_Load(object sender, EventArgs e)
         {
@@ -36,12 +37,13 @@ namespace WindowsFormsApplication2
             adapter = new OleDbDataAdapter("select ID, Nombres, Apellidos, TipoID, NoIdentificacion, FechaNacimiento from Clientes", con);
             adapter.Fill(dt);
             dataGridView1.DataSource = dt;
+            dataGridView1.Columns[0].Visible = false;
             con.Close();
         }
 
         private void ComboFile_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if(ComboFile.SelectedItem=="Excel")
+            if (ComboFile.SelectedItem == "Excel")
             {
                 Combo2.Items.Clear();
                 Combo2.Items.Add(".xls");
@@ -56,34 +58,37 @@ namespace WindowsFormsApplication2
 
         private void button1_Click(object sender, EventArgs e)
         {
-            if(ComboFile.SelectedItem!="")
+            if (ComboFile.SelectedItem != "")
             {
-                if(ComboFile.SelectedItem=="Excel")
+                if (ComboFile.SelectedItem == "Excel")
                 {
-                    if(Combo2.SelectedItem==".xls")
+                    if (Combo2.SelectedItem == ".xls")
                     {
                         FileFilter = "Archivos Excel (*.xls)|*.xls";
                         ExportExcel2();
                     }
-                    else if(Combo2.SelectedItem==".xlsx")
+                    else if (Combo2.SelectedItem == ".xlsx")
                     {
                         FileFilter = "Archivos Excel (*.xlsx)|*.xlsx";
                         ExportExcel();
                     }
                 }
-                else if(ComboFile.SelectedItem=="Csv")
+                else if (ComboFile.SelectedItem == "Csv")
+                {
+                    saveFileDialog1.Filter = "Archivos CSV(*.csv)|*.csv";
+                    saveFileDialog1.FileName = "CSV-ExportClientes.csv";
+                    saveFileDialog1.ShowDialog();
+                    SaveDataGridViewToCSV(saveFileDialog1.FileName);
+                }
+                else if (ComboFile.SelectedItem == "Txt")
                 {
 
                 }
-                else if(ComboFile.SelectedItem=="Txt")
+                else if (ComboFile.SelectedItem == "XML")
                 {
 
                 }
-                else if(ComboFile.SelectedItem=="XML")
-                {
-
-                }
-                else if(ComboFile.SelectedItem=="Json")
+                else if (ComboFile.SelectedItem == "Json")
                 {
 
                 }
@@ -155,7 +160,7 @@ namespace WindowsFormsApplication2
                 excel.Quit();
                 workbook = null;
                 excel = null;
-            } 
+            }
         }
         private void ExportExcel2()
         {
@@ -166,7 +171,7 @@ namespace WindowsFormsApplication2
             // creating new Excelsheet in workbook  
             Microsoft.Office.Interop.Excel._Worksheet worksheet = null;
             // see the excel sheet behind the program  
-            app.Visible = true;
+            app.Visible = false;
             // get the reference of first sheet. By default its name is Sheet1.  
             // store its reference to worksheet  
             worksheet = workbook.Sheets["Sheet1"];
@@ -198,7 +203,68 @@ namespace WindowsFormsApplication2
             // save the application  
             //workbook.SaveAs("c:\\output.xls", Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Microsoft.Office.Interop.Excel.XlSaveAsAccessMode.xlExclusive, Type.Missing, Type.Missing, Type.Missing, Type.Missing);
             // Exit from the application  
-            app.Quit();  
+            app.Quit();
+        }
+        private void ToCSV()
+        {
+            string CsvFpath = @"C:\scanner\CSV-EXPORT.csv";
+            try
+            {
+                System.IO.StreamWriter csvFileWriter = new StreamWriter(CsvFpath, false);
+
+                string columnHeaderText = "";
+
+                int countColumn = dataGridView1.ColumnCount - 1;
+
+                if (countColumn >= 0)
+                {
+                    columnHeaderText = dataGridView1.Columns[0].HeaderText;
+                }
+
+                for (int i = 1; i <= countColumn; i++)
+                {
+                    columnHeaderText = columnHeaderText + ',' + dataGridView1.Columns[i].HeaderText;
+                }
+
+
+                csvFileWriter.WriteLine(columnHeaderText);
+
+                foreach (DataGridViewRow dataRowObject in dataGridView1.Rows)
+                {
+                    if (!dataRowObject.IsNewRow)
+                    {
+                        string dataFromGrid = "";
+
+                        dataFromGrid = dataRowObject.Cells[0].Value.ToString();
+
+                        for (int i = 1; i <= countColumn; i++)
+                        {
+                            dataFromGrid = dataFromGrid + ',' + dataRowObject.Cells[i].Value.ToString();
+
+                            csvFileWriter.WriteLine(dataFromGrid);
+                        }
+                    }
+                }
+
+
+                csvFileWriter.Flush();
+                csvFileWriter.Close();
+            }
+            catch (Exception exceptionObject)
+            {
+                MessageBox.Show(exceptionObject.ToString());
+            }
+        }
+        void SaveDataGridViewToCSV(string filename)
+        {
+            // Choose whether to write header. Use EnableWithoutHeaderText instead to omit header.
+            dataGridView1.ClipboardCopyMode = DataGridViewClipboardCopyMode.EnableAlwaysIncludeHeaderText;
+            // Select all the cells
+            dataGridView1.SelectAll();
+            // Copy selected cells to DataObject
+            DataObject dataObject = dataGridView1.GetClipboardContent();
+            // Get the text of the DataObject, and serialize it to a file
+            File.WriteAllText(filename, dataObject.GetText(TextDataFormat.CommaSeparatedValue));
         }
     }
 }
